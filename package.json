@@ -1,0 +1,29 @@
+{
+  "name": "launch-schools-core-curriculum",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint-cli": "^1.1.1",
+    "readline-sync": "^1.4.10"
+  },
+  "devDependencies": {
+    "eslint": "^7.19.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ARasodha/launch-schools-core-curriculum.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ARasodha/launch-schools-core-curriculum/issues"
+  },
+  "homepage": "https://github.com/ARasodha/launch-schools-core-curriculum#readme"
+}
