@@ -27,6 +27,7 @@ PSEUDOCODE:
 - ASK FOR ANOTHER CALCULATION
 - WHILE LOOP & LOGIC FOR ANOTHER CALCULATION OPTION
 */
+
 const readline = require('readline-sync');
 
 function prompt(message) {
@@ -39,20 +40,20 @@ function isInvalid(number) {
     Number.isNaN(Number(number));
 }
 
-prompt('Welcome to the Mortgage Calculator!');
+prompt('Welcome to the Mortgage Calculator?');
 
-prompt('-----------------------------------------');
+prompt('-------------------------------------------');
+
 while (true) {
   prompt('What is your current loan amount?');
   let amount = readline.question();
-
   while (isInvalid(amount)) {
     prompt('Please enter a valid number.');
     amount = readline.question();
   }
 
-  prompt('What is your interest rate?');
-  prompt('For example, if your rate is five percent, enter 5');
+  prompt('What is your interest rate? ');
+  prompt('For example, if it is five percent, enter 5');
   let interestRate = readline.question();
   while (isInvalid(interestRate)) {
     prompt('Please enter a valid number.');
@@ -66,21 +67,22 @@ while (true) {
     years = readline.question();
   }
 
-  let annualInterestRate = Number(interestRate) / 100;
+  let annualInterestRate = Math.floor(interestRate) / 100;
   let monthlyInterestRate = annualInterestRate / 12;
-  let months = Number(years) * 12;
+  let months = Math.floor(years) * 12;
 
-  let monthlyPayment = amount * (monthlyInterestRate /
-    (1 - Math.pow((1 + monthlyInterestRate), (-months))));
+  let monthlyPayment = amount * (monthlyInterestRate / (1 - Math.pow(
+    (1 + monthlyInterestRate), (-months))));
 
   prompt(`Your monthly payment is: ${monthlyPayment.toFixed(2)}`);
 
-  prompt('Make another calculation? ("y" or "n")');
+  prompt('Make another calculation?');
   let answer = readline.question().toLowerCase();
-  while (answer !== 'n' && answer !== 'y') {
-    prompt('Enter "y" or "n"');
+  while (answer[0] !== 'n' && answer[0] !== 'y') {
+    prompt('Please enter either "y" or "n"');
     answer = readline.question().toLowerCase();
   }
+
 
   if (answer[0] === 'n') break;
 }
