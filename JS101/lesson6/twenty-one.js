@@ -62,6 +62,15 @@ function playAgain() {
   return answer === 'y';
 }
 
+// For better readability of player cards
+function joinOr(array, delimiter = ', ', word = 'and') {
+  switch (array.length) {
+    case 0: return ' ';
+    case 1: return String(array[0]);
+    case 2: return `${array[0]} ${word} ${array[1]}`;
+    default: return `${array.slice(0, array.length - 1).join(delimiter)}${delimiter}${word} ${array[array.length - 1]}`;
+  }
+}
 
 // GAME
 while (true) {
@@ -89,7 +98,7 @@ while (true) {
   while (true) {
     if (busted(playerCards) || evaluateCards(playerCards) === 21) break;
 
-    prompt('Player, hit or stay?');
+    prompt('Hit or stay?');
     playerDecision = readline.question().toLowerCase();
     while (!['hit', 'stay', 'h', 's'].includes(playerDecision)) {
       prompt('Invalid entry. Enter either "(h)it" or "(s)tay":');
@@ -100,7 +109,7 @@ while (true) {
 
     dealCard(playerCards, deckOfCards);
     evaluateCards(playerCards);
-    prompt(`You have: ${playerCards.join(', ')}`);
+    prompt(`You have: ${joinOr(playerCards, ', ', 'and')}`);
   }
 
   prompt(`The sum of the your cards is: ${evaluateCards(playerCards)}`);
