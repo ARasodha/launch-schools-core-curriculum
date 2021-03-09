@@ -1,9 +1,8 @@
-const readline = require('readline-sync');
+const readline = require("readline-sync");
 
 const INITIAL_MARKER = ' ';
 const HUMAN_MARKER = 'X';
 const COMPUTER_MARKER = 'O';
-const BEST_OF = 5;
 
 function prompt(msg) {
   console.log(`=> ${msg}`);
@@ -11,8 +10,8 @@ function prompt(msg) {
 
 function displayBoard(board) {
   console.clear();
-  prompt('Tic Tac Toe!');
-  console.log(`You are ${HUMAN_MARKER}. Computer is ${COMPUTER_MARKER}.`);
+  console.log('Tic, Tac, Toe!');
+  console.log(`You are ${HUMAN_MARKER}. Computer is ${COMPUTER_MARKER}`);
 
   console.log('');
   console.log('     |     |');
@@ -40,14 +39,14 @@ function initializeBoard() {
 }
 
 function emptySquares(board) {
-  return Object.keys(board).filter(key => board[key] === INITIAL_MARKER);
+  return Object.keys(board).filter(key => board[key] === ' ');
 }
 
 function playerChoosesSquare(board) {
   let square;
 
   while (true) {
-    prompt(`Choose a square (${joinOr(emptySquares(board))}):`);
+    prompt(`Choose a square (${emptySquares(board).join(', ')}):`);
     square = readline.question().trim();
     if (emptySquares(board).includes(square)) break;
 
@@ -57,9 +56,8 @@ function playerChoosesSquare(board) {
   board[square] = HUMAN_MARKER;
 }
 
-function computerChoosesSquares(board) {
+function computerChoosesSquare(board) {
   let randomIndex = Math.floor(Math.random() * emptySquares(board).length);
-
   let square = emptySquares(board)[randomIndex];
   board[square] = COMPUTER_MARKER;
 }
@@ -69,33 +67,19 @@ function boardFull(board) {
 }
 
 function someoneWon(board) {
-  return !!detectWinner(board);
-}
-
-function joinOr(array, delimiter = ', ', word = 'or') {
-  switch (array.length) {
-    case 0:
-      return ' ';
-    case 1:
-      return String(array[0]);
-    case 2:
-      return array[0] + ' ' + word + ' ' + array[1];
-    default:
-      return array.slice(0, array.length - 1).join(delimiter) + delimiter +
-        word + ' ' + array[array.length - 1];
-  }
+  return detectWinner(board);
 }
 
 function detectWinner(board) {
   let winningLines = [
     [1, 2, 3],
     [4, 5, 6],
-    [7, 8, 9],
+    [7, 8, 9], // rows
     [1, 4, 7],
     [2, 5, 8],
-    [3, 6, 9],
+    [3, 6, 9], // columns
     [1, 5, 9],
-    [3, 5, 7]
+    [3, 5, 7] // diagonals
   ];
 
   for (let line = 0; line < winningLines.length; line++) {
@@ -115,6 +99,7 @@ function detectWinner(board) {
       return 'Computer';
     }
   }
+
   return null;
 }
 
@@ -123,12 +108,12 @@ while (true) {
 
   while (true) {
     displayBoard(board);
+
     playerChoosesSquare(board);
     if (someoneWon(board) || boardFull(board)) break;
 
-    computerChoosesSquares(board);
+    computerChoosesSquare(board);
     if (someoneWon(board) || boardFull(board)) break;
-
   }
 
   displayBoard(board);
@@ -139,14 +124,8 @@ while (true) {
     prompt("It's a tie!");
   }
 
-  prompt('Would you like to play again? (y/n)');
-  let answer = readline.question();
-
-  while (answer !== 'y' && answer !== 'n') {
-    prompt('Please enter either "y" or "n".');
-    answer = readline.question();
-  }
-
+  prompt('Play again? (y/n)');
+  let answer = readline.question().toLowerCase()[0];
   if (answer !== 'y') break;
 }
 
