@@ -1,6 +1,5 @@
 const readline = require('readline-sync');
 
-// Create Deck
 function initializeDeck() {
   let hearts = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'Jack', 'Queen', 'King', 'Ace'];
   let diamonds = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'Jack', 'Queen', 'King', 'Ace'];
@@ -10,15 +9,13 @@ function initializeDeck() {
   return deckOfCards;
 }
 
-// Deal Card
-function cardDealer(deckOfCards) {
+function drawRandomCard(deckOfCards) {
   let randomIndex = Math.floor(Math.random() * deckOfCards.length);
   let selectedCard = deckOfCards.splice(randomIndex, 1);
 
   return selectedCard;
 }
 
-// Evaluate Cards: (be able to iterate over player and dealer cards)
 function evaluateCards(playerOrDealerCards) {
   let sum = 0;
   playerOrDealerCards.forEach(card => {
@@ -35,22 +32,18 @@ function evaluateCards(playerOrDealerCards) {
   return sum;
 }
 
-// Prompt user
 function prompt(msg) {
   console.log(`=> ${msg}`);
 }
 
-// Detect if either play busted
 function busted(player) {
   return evaluateCards(player) > 21;
 }
 
-// Gives a card to either the dealer or player
 function dealCard(player, deckOfCards) {
-  return player.push(...cardDealer(deckOfCards));
+  return player.push(...drawRandomCard(deckOfCards));
 }
 
-// Ask user to play again
 function playAgain() {
   let answer;
   prompt('Play Again? (y/n)');
@@ -62,7 +55,6 @@ function playAgain() {
   return answer === 'y';
 }
 
-// For better readability of player cards
 function joinOr(array, delimiter = ', ', word = 'and') {
   switch (array.length) {
     case 0: return ' ';
@@ -92,7 +84,6 @@ while (true) {
 
   prompt(`You have: ${playerCards[0]} and ${playerCards[1]}`);
 
-  // Player Loop
   let playerDecision;
 
   while (true) {
@@ -127,7 +118,7 @@ while (true) {
 
     }
     if (busted(dealerCards)) {
-      prompt('Dealer busted! You win!'); // Add play again option
+      prompt('Dealer busted! You win!');
     } else {
       prompt(`The sum of the dealers cards is: ${evaluateCards(dealerCards)}`);
       if (evaluateCards(playerCards) > evaluateCards(dealerCards)) {
