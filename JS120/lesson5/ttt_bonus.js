@@ -123,6 +123,7 @@ class TTTGame {
     this.board = new Board();
     this.human = new Human();
     this.computer = new Computer();
+    this.firstPlayer = this.human;
   }
 
   static POSSIBLE_WINNING_COMBOS = [
@@ -231,16 +232,16 @@ class TTTGame {
   }
 
   playOneGame() {
+    let currentPlayer = this.firstPlayer;
+    
     this.board.reset();
     this.board.display();
     while (true) {
-      this.humanMoves();
-      if (this.gameOver()) break;
-
-      this.computerMoves();
+      this.playerMoves(currentPlayer);
       if (this.gameOver()) break;
 
       this.board.displayWithClear();
+      currentPlayer = this.togglePlayer(currentPlayer);
     }
 
     this.board.displayWithClear();
@@ -291,9 +292,22 @@ class TTTGame {
 
       if (this.matchOver()) break;
       if (!this.playAgain()) break;
+      this.firstPlayer = this.togglePlayer(this.firstPlayer);
     }
 
     this.displayMatchResults;
+  }
+
+  togglePlayer(player) {
+    return player === this.human ? this.computer : this.human;
+  }
+
+  playerMoves(currentPlayer) {
+    if (currentPlayer === this.human) {
+      this.humanMoves();
+    } else {
+      this.computerMoves();
+    }
   }
 
   matchOver() {
