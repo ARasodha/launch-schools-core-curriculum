@@ -68,8 +68,10 @@ class Board {
     return markers.length;
   }
 
-  clearAndDisplay() {
+  displayWithClear() {
     console.clear();
+    console.log("");
+    console.log("");
     this.display();
   }
 
@@ -89,6 +91,18 @@ class Board {
 class Player {
   constructor(marker) {
     this.marker = marker;
+    this.score = 0;
+  }
+  getMarker() {
+    return this.marker;
+  }
+  
+  getScore() {
+    return this.score;
+  }
+
+  incrementScore() {
+    this.score += 1;
   }
 }
 
@@ -130,17 +144,11 @@ class TTTGame {
     }
   }
 
+  static MATCH_GOAL = 3;
+
   play() {
     this.displayWelcomeMessage();
-
-    while (true) {
-      this.playOnce();
-      if (this.playAgain()) break;
-      console.clear();
-      this.board.reset();
-      console.log("Let's play again!");
-    }
-
+    this.playMatch();
     this.displayGoodbyeMessage();
   }
 
@@ -219,23 +227,23 @@ class TTTGame {
       console.log('Please enter either "y" or "n": ');
     }
 
-   return answer === 'n'
+   return answer === 'y'
   }
 
-  playOnce() {
+  playOneGame() {
+    this.board.reset();
     this.board.display();
     while (true) {
-
       this.humanMoves();
       if (this.gameOver()) break;
 
       this.computerMoves();
       if (this.gameOver()) break;
 
-      this.board.clearAndDisplay();
+      this.board.displayWithClear();
     }
 
-    this.board.clearAndDisplay();
+    this.board.displayWithClear();
     this.displayResults();
   }
 
@@ -271,6 +279,51 @@ class TTTGame {
     } while (!validChoices.includes(choice));
 
     return choice;
+  }
+
+  playMatch() {
+    console.log(`First player to win ${TTTGame.MATCH_GOAL} games wins the match.`);
+
+    while (true) {
+      this.playOneGame();
+      this.updateMatchScore();
+      this.displayMatchScore();
+
+      if (this.matchOver()) break;
+      if (!this.playAgain()) break;
+    }
+
+    this.displayMatchResults;
+  }
+
+  matchOver() {
+    return this.isMatchWinner(this.human) || this.isMatchWinner(this.computer);
+  }
+
+  isMatchWinner(player) {
+    return player.getScore() >= TTTGame.MATCH_GOAL;
+  }
+
+  updateMatchScore() {
+    if (this.isWinner(this.human)) {
+      this.human.incrementScore();
+    } else if (this.isWinner(this.computer)) {
+      this.computer.incrementScore();
+    }
+  }
+
+  displayMatchScore() {
+    let human = this.human.getScore();
+    let computer = this.computer.getScore();
+    console.log(`Current match score: [you: ${human}] [computer: ${computer}]`);
+  }
+
+  displayMatchResults() {
+    if (this.human.getScore() > this.computer.getScore()) {
+      console.log('You win the match! Congratulations!');
+    } else if (this.computer.getScore() > this.human.getScore()) {
+      console.log('You loose the match! Better luck next time.');
+    }
   }
 }
 
