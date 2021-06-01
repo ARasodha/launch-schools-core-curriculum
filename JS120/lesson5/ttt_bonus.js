@@ -96,7 +96,7 @@ class Player {
   getMarker() {
     return this.marker;
   }
-  
+
   getScore() {
     return this.score;
   }
@@ -183,8 +183,8 @@ class TTTGame {
 
     if (!choice) {
       choice = this.intelligentComputerMoves(this.computer);
-    } 
-    
+    }
+
     if (!choice) {
       choice = this.chooseCenterSquare();
     }
@@ -218,7 +218,7 @@ class TTTGame {
   someoneWon() {
     return this.isWinner(this.human) || this.isWinner(this.computer);
   }
-  
+
   playAgain() {
     let answer;
     while (true) {
@@ -228,12 +228,12 @@ class TTTGame {
       console.log('Please enter either "y" or "n": ');
     }
 
-   return answer === 'y'
+    return answer === 'y';
   }
 
   playOneGame() {
     let currentPlayer = this.firstPlayer;
-    
+
     this.board.reset();
     this.board.display();
     while (true) {
@@ -295,7 +295,7 @@ class TTTGame {
       this.firstPlayer = this.togglePlayer(this.firstPlayer);
     }
 
-    this.displayMatchResults;
+    this.displayMatchResults();
   }
 
   togglePlayer(player) {
