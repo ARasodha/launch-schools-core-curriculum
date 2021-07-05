@@ -1,5 +1,5 @@
 // Practice Problems: Closures
-Problem 1;
+// Problem 1;
 let counter = 0;
 
 function makeCounter() {
@@ -103,7 +103,7 @@ function subtract(num) {
 add(1);       // 1
 add(42);      // 43
 subtract(39); // 4
-// add(6);       // 10
+add(6);       // 10
 
 // Problem 7:
 function foo(start) {
