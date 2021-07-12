@@ -1,7 +1,9 @@
+// Closures
+// Partial Function Application
 function add(first, second) {
   return first + second;
 }
-
+å
 function makeAdder(firstNumber) {
   return function(secondNumber) {
     return add(firstNumber, secondNumber);
@@ -14,4 +16,4 @@ let addTen = makeAdder(10);
 console.log(addFive(3)); // 8
 console.log(addFive(55)); // 60
 console.log(addTen(3)); // 13
-console.log(addTen(55)); // 65
+console.log(addTen(55)); // 65 

@@ -19,7 +19,7 @@ function createDeck() {
 }
 
 function shuffle(deck) {
-  for (let counter = 0; counter < 400; counter += 1) {
+  for (let counter = 0; counter < 256; counter += 1) {
     let randomIndex1 = randomCardIndex();
     let randomIndex2 = randomCardIndex();
     let tempCard = deck[randomIndex1];
