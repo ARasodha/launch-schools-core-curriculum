@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Input Types</title>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+
+    <h2>Type <em>text</em></h2>
+    <form action="#" method="post">
+      <fieldset>
+        <label>First name
+          <input type="text" name="first_name" value="Tom"/>
+        </label>
+      </fieldset>
+    </form>
+
+    <h2>Type <em>password</em></h2>
+    <form action="#" method="post">
+      <fieldset>
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password"
+                value="Not-good-password" size="35" />
+      </fieldset>
+
+
+      <h2>Type <em>email</em></h2>
+      <form action="#" method="post">
+        <fieldset>
+          <label>
+            Email
+            <input type="email" name="email" placeholder="username@domain" />
+          </label>
+        </fieldset>
+      </form>
+    </form>
+
+    <h2>Type <em>tel</em></h2>
+    <form action="#" method="post">
+      <fieldset>
+        <label>Phone
+          <input type="tel" name="phone" placeholder="(###) ### ####" />
+        </label>
+      </fieldset>
+    </form>
+
+    <h2>Type <em>checkbox</em></h2>
+    <form action="#" method="post">
+      <fieldset>
+        <label>
+          <input type="checkbox" name="choice" value="search" />
+          Sort search results
+        </label>
+
+        <label>
+          <input type="checkbox" name="choice" value="google" checked>
+          Search on Google
+        </label>
+
+        <label>
+          <input type="checkbox" name="choice" value="recent" checked>
+          Recent results (within the last year)
+        </label>
+      </fieldset>
+    </form>
+
+    <h2>Type <em>radio</em></h2>
+    <form action="#" method="post">
+      <fieldset>
+        <label>
+          <input type="radio" name="color" value="red">
+          Red
+        </label>
+
+        <label>
+          <input type="radio" name="color" value="green" checked>
+          Green
+        </label>
+
+        <label>
+          <input type="radio" name="color" value="blue">
+          Blue
+        </label>
+      </fieldset>
+    </form>
+
+    <h2>Type <em>submit</em></h2>
+    <form action="#" method="post">
+      <fieldset>
+        <input type="submit" value="save">
+      </fieldset>
+    </form>
+
+    <h2>Type <em>rest</em></h2>
+    <form action="#" method="post">
+      <fieldset>
+        <input type="reset" value="Clear Form">
+      </fieldset>
+    </form>
+
+    <h2>The <em>select</em> and <em>option</em> elements</h2>
+    <form action="#" method="post">
+      <fieldset>
+        <label>
+          Colors
+          <select name="color" multiple>
+            <option value="" disabled selected>Choose one</option>
+            <option value="#f00">Red</option>
+            <option value="#0f0">Green</option>
+            <option value="$00f">Blue</option>
+          </select>
+        </label>
+      </fieldset>
+    </form>
+  </body>
+</html>

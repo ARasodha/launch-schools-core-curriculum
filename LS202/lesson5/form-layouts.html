@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Form</title>
+    <meta charset="utf-8" />
+    <style>
+      body {
+        font: normal 20px Arial;
+        margin: 20px;
+      }
+      dt {
+        display: inline-block;
+        padding-bottom: 10px;
+      }
+      dd {
+        display: inline-block;
+        margin: 0;
+        width: 100%;
+      }
+
+      input {
+        box-sizing: border-box;
+        width: 100%;
+        height: 40px;
+        border: 1.5px solid black;
+      }
+      
+      input[type="text"] + input[type="text"] {
+        margin-top: 10px;
+      }
+
+      .city, .prov, .zipcode {
+        display: inline-block;
+        box-sizing: border-box;
+        width: 32%;
+      }
+
+      select {
+        width: 100%;
+        height: 40px;
+      }
+
+      input[type="submit"] {
+        width: 100px;
+        font: normal 20px Arial;
+      }
+
+      input[type="submit"]:hover, 
+      input[type="submit"]:focus {
+        background-color: cyan;
+      }
+
+      input:hover {
+        border: 2px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <form action="#" method="post">
+      <dl>
+        <dt><label for="your_name">Your Name</label></dt>
+        <dd><input type="text" name="your_name"></dd>
+      </dl>
+      <dl>
+        <dt><label for="address">Address</label></dt>
+        <dd><input type="text" name="address">
+          <input type="text" name="address2"></dd>
+      </dl>
+      <dl class="city">
+        <dt><label for="city">City</label></dt>
+        <dd><input type="text" name="city"></dd>
+      </dl>
+      <dl class="prov">
+        <dt><label for="province">Province</label></dt>
+        <dd><select name="province">
+          <option value="" disabled selected>Select</option>
+          <option value="">BC</option>
+          <option value="">ON</option>
+          <option value="">QC</option>
+        </select></dd>
+      </dl><!--
+      --><dl class="zipcode">
+        <dt><label for="zipcode">Zipcode</label></dt>
+        <dd><input type="text" name="zipcode"></dd>
+      </dl>
+
+      <input type="submit" value="Submit">
+    </form>
+  </body>
+</html>
