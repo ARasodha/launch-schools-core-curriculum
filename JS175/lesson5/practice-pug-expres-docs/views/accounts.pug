@@ -1,0 +1,13 @@
+//- must extend page that you want to insert block from
+//- use block to insert the content specific in file thats being extended from
+extends layout.pug 
+block appContent
+    h1 Arjun Rasodha
+      p Account Balance: #{money}
+      if !recentTransaction
+        p No Recent Transaction
+      else 
+        p #{recentTransaction}
+    button Logout
+
+//- example of using javascript logic in pug file for dynamic output

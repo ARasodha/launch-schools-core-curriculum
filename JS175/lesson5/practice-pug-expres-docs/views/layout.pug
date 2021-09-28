@@ -1,0 +1,10 @@
+html(lang="en")
+  head
+    title Pug Practice
+    //- Add your css file (internal)
+    style 
+      include includes/style.css
+  body 
+    include includes/header.pug 
+    //- Make code useable in other files like index.pug
+    block appContent

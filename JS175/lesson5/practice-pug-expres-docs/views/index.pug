@@ -1,0 +1,140 @@
+//- must extend page that you want to insert block from
+extends layout.pug
+//- Inserting html template code from layout.pug
+block appContent
+  h1 Hello Express 
+  p Practicing Pug 
+
+  //- ATTRIBUTES
+
+  //- Use of anchor tags, setting class
+  a(class="button" href="https://google.com") Check us out on Google!
+
+  //- can use javascript when setting attributes
+  - var authenticated = true 
+  textarea(class=authenticated ? "authed" : "anon")
+
+  //- multiline attributes, boolean attribute
+  input(
+  type='checkbox'
+  name='agreement'
+  checked
+)
+
+  //- style attributes
+  button(style={color: 'red', background: 'green', height: "70px", width: "100px"})
+
+  //- CONDITIONALS- Add javascript logic to determine which elements are used
+  if false 
+    a(style={color: "red"} href="#") Hello
+  else
+    a(style={color: "blue"} href="#") Bye
+
+  //- unless keyword can be used like !variable 
+  unless false
+    p this is the same as (if !false)
+
+  //- class literal - classes can defined using a .classname syntax
+  //- here is an anchor tag with the class button, swap . with # for ID
+  a.button(href="https://facebook.com" target="_blank") Facebook
+
+  //- CASE -note: if there is an empty line the case will fall through (ex no p element have when 0)
+  - var friends = 10;
+  case friends 
+    when 0: p you have no friends 
+    when 1: p you have a friend 
+    default: p you have #{friends} friends
+
+
+  //- CODE
+
+  //- Unbuffered Code - starts with - snd does not directly add anything to the output
+  - for (let x = 0; x < 3; x++)
+    li item
+
+  //-  pug also supports block unbuffered code:
+  - 
+    var list = ["uno", "dos", "tres", "cuatro", "cinco", "seis"]
+  each item in list
+    li= item
+
+  //- Buffered Code - starts with = and evaluates the javascript expression and outputs the 
+  //- result. For security buffered code is first HTML escaped. Code that you dont want to be escaped
+  //- can use != instead (dangerous, vulnerable to XSS)
+  p
+    = "This code is <escaped> (&lt;escaped&gt;)!"
+
+  //- buffered comments: 
+  // example
+  //- unbuffered comments
+  //- example
+  //- block comemnts
+  //- 
+    example
+    example
+    example
+
+  //- DOCTYPE can be written as-->  doctype html
+  //- checkout layout for INCLUDES examples
+
+  //- TEMPLATE INHERITANCE - BLOCK & EXTENDS
+  include includes/block.pug
+
+  //- INTERPOLATION
+  - var title = "Oh dogs: Man's best friend"
+  - var author = "enlore";
+  - var theGreat = "<b>escape!</b>"
+
+  h1= title
+  p Written with love by #{author}
+  p This will be safe: #{theGreat}
+
+  p.
+    text to show that a file can only extend one other file, otherwise 
+    you need to use #[em(style={color: "green"}) include] instead.
+
+  //- ITERATION
+
+  //- each, can also access the index as iterating (each val, index, in [array...])
+
+  ul 
+    each val in ['a', 'b', 'c']
+      li= val
+  
+  //- can also iterate over the keys in an object 
+  ul 
+    each val, key in {1: "one", 2: "two", 3: "three"}
+      li= key + ': ' + val
+  
+  //- can also add an else block that will execute if the array/object is empty
+  - var values = [];
+  ul 
+    each val in values
+      li= val
+    else 
+      li There are no values
+
+  //- while
+  - var n = 0;
+  ul
+    while n < 4
+      li= n++
+
+  //- MIXINS - let you create reusable blocks of pug 
+
+  mixin list 
+    ul 
+      li foo
+      li bar 
+      li baz 
+  //- use: 
+  +list
+  +list
+
+  //- mixins are complied to functions so they can take arguments -these li have the class pet
+  mixin pet(name)
+    li.pet= name
+  ul 
+    +pet('cat')
+    +pet('dog')
+    +pet('tiger')

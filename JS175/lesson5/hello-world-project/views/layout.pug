@@ -1,0 +1,24 @@
+doctype html 
+
+html(lang=language)
+  head
+    block page_title
+      title This is the page title 
+    meta(charset="UTF-8")
+    link(rel="stylesheet" href="/stylesheets/application.css")
+    
+  body 
+    nav 
+      ul 
+        each country in countries
+          li 
+            a(href=country.path class=currentPathClass(country.path, currentPath))
+              img.flag(src=`/images/${country.flag}`
+                      alt=country.alt
+                      title=country.title)
+
+    header
+      block greeting
+        h1 Hello World! 
+    main 
+      block software_engineer
