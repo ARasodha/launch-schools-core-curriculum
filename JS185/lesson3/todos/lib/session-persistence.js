@@ -149,13 +149,19 @@ module.exports = class SessionPersistence {
   // todo lists. Return `true` on success, `false` on failure. (At this time, 
   // there are no known failure conditions)
   createTodoList(title) {
-    this._todoList.push({
+    this._todoLists.push({
       title, 
       id: nextId(),
       todos: [],
     });
 
     return true;
+  }
+
+  // Returns `true` if `error` seems to indicate a `UNIQUE` constraint
+  // violation, `false` otherwise.
+  isUniqueConstraintViolation(_error) {
+    return false;
   }
 };
 
