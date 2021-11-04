@@ -4,7 +4,7 @@ const flash = require("express-flash");
 const session = require("express-session");
 const { body, validationResult } = require("express-validator");
 const store = require("connect-loki");
-const PgPersistence = require("./lib/pg-persistence"); // potential pg persistence
+const PgPersistence = require("./lib/pg-persistence");
 const catchError = require("./lib/catch-error");
 
 const app = express();
@@ -52,8 +52,7 @@ app.use((req, res, next) => {
 // Detect unauthorized access to routes
 const requiresAuthentication = (req, res, next) => {
   if (!res.locals.signedIn) {
-    console.log("Unauthorized.");
-    res.status(401).send("Unauthorized.");
+    res.redirect(302, "/users/signin");
   } else {
     next();
   }
@@ -61,7 +60,7 @@ const requiresAuthentication = (req, res, next) => {
 
 // Redirect start page
 app.get("/", (req, res) => {
-  res.redirect("/lists");
+  res.redirect("/users/signin");
 });
 
 // Render the Sign In page
@@ -73,7 +72,8 @@ app.get("/users/signin", (req, res) => {
 });
 
 // Render the list of todo lists
-app.get("/lists", 
+app.get("/lists",
+  requiresAuthentication, 
   catchError(async (req, res, next) => {
     let store = res.locals.store;
     let todoLists = await store.sortedTodoLists();
@@ -136,7 +136,8 @@ app.post("/lists",
 );
 
 // Render individual todo list and its todos
-app.get("/lists/:todoListId", 
+app.get("/lists/:todoListId",
+  requiresAuthentication, 
   catchError(async (req, res, next) => {
     let store = res.locals.store;
     let todoListId = req.params.todoListId;
