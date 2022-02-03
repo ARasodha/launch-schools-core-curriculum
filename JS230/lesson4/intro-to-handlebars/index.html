@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Handlebars Templating Practice</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- Include Handlebars from a CDN -->
+<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+<script>
+  let products = [{
+    name: 'Banana',
+    quantity: 14,
+    price: 0.79,
+    on_sale: false,
+  }, {
+    name: 'Apple',
+    quantity: 3,
+    price: 0.55,
+    on_sale: true,
+  }];
+
+  let newProduct = {
+  name: 'Soup',
+  quantity: 1,
+  price: 1.29
+};
+
+  $.ready(event => {
+    let template = Handlebars.compile($("#template").html());
+    $('body').html(template({products: products}));
+
+  });
+</script>
+<body>
+  <script id="template" type="text/x-handlebars">
+    <h3>Products</h3>
+    {{#each products}}
+      <ul>
+          <li>Name: {{name}}</li>
+          <li>Quantity: {{quantity}}</li>
+          <li>Price: {{price}}</li>
+          {{#if on_sale}}
+          <li>This product is on sale!</li>
+          {{/if}}
+      </ul>
+    {{/each}}
+  </script>
+  <!-- <script id="template2" type="text/x-handlebars">
+    <h3>Limited Time Products</h3>
+    {{#each products}}
+    {{> template2}}
+    {{/each}}
+  </script> -->
+</body>
+</html>

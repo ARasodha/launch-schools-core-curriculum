@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Practice Problems Handlebars</title>
+  <script src="jquery.js"></script>
+  <script src="handlebars-v4.7.7.js"></script>
+  <script>
+    let post = {
+    title: 'Lorem ipsum dolor sit amet',
+    published: 'April 1, 2015',
+    body: 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.',
+  };
+    post.body = '<em>' + post.body + '</em>';
+    post.tags = ['tag1', 'tag2', 'tag3'];
+
+    let posts = [post, {
+      title: 'Another post',
+      published: 'February 3, 2022',
+      body: 'Here is another post but this time without any tags',
+    }]
+
+    $(function(e) {
+      let postTemplate = Handlebars.compile($("#post").html());
+      Handlebars.registerPartial('tag', $("#tag").html());
+
+      $("body").append(postTemplate({posts: posts}));
+    });
+  </script>
+</head>
+<body>
+  <script id="tag" type="text/x-handlebars">
+    <li>{{this}}</li>
+  </script>
+
+  <script id="post" type="text/x-handlebars">
+    {{#each posts}}
+    <article>
+      <h1>{{title}}</h1>
+      <p><time>Posted on {{published}}</time></p>
+      {{{body}}}
+      {{#if tags}}
+      <h3>Tags</h3>
+      <ul>
+        {{#each tags}}
+        {{> tag}}
+        {{/each}}
+      </ul>
+      {{else}}
+      <p>Not tagged</p>
+      {{/if}}
+    </article>
+    {{/each}}
+  </script>
+</body>
+</html>

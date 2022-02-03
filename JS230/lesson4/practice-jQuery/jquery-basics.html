@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Demo</title>
+</head>
+<body>
+    <a href="http://jquery.com/">jQuery</a>
+
+    <div id='content'>
+      <p class="paragraphs">Paragraph 1</p>
+      <p class="paragraphs">Paragraph 2</p>
+      <p class="paragraphs">Paragraph 2</p>
+    </div>
+
+    <ul>
+      <li>item 1</li>
+      <li>item 2</li>
+      <li>item 3</li>
+    </ul>
+
+
+    <script src="jquery.js"></script>
+    <script>
+      let $content = jQuery('#content');
+      console.log($content); // jQuery collection of single element with "content" id
+      let $sameContent = $('#content');
+      console.log($sameContent); // jQuery collection of single element with "content" id
+      console.log($content.jquery); // 3.6.0 -- version of jQuery being used. Verifies jQuery object
+
+      let $lis = $('li');
+      console.log($lis); // jQuery collection of all list item elements
+      console.log($lis.length); //3
+
+      console.log($content.css('font-size')); // getter
+      $content.css('font-size', '18x'); // setter
+
+      // width + height methods act as both getters and setters 
+      var width = $content.width(); // 800 (getter);
+      $content.width(width / 2); // Sets to 400
+      console.log($content.width()); // now 400 (getter)
+
+      // Chaining Method Calls
+      $content.css('font-size', '18px').css('color', '#b00b00');
+
+      // Object Argument
+      $content.css({
+        'font-size': '18px', // can use fontSize as property name as well to omit parentheses
+        color: '#b00b00',
+      });
+
+      // Property Name Syntax
+
+
+      // $(document).ready(function() {
+      //   // DOM loaded and ready, referenced image on img tags are not ready
+      // });
+
+      // $(window).load(function() {
+      //   // DOM loaded and ready, referenced image on img tags loaded and ready
+      // });
+
+      // $(function() {
+      //   // DOM loaded and ready, referenced image on img tags are not ready
+      // }) 
+    </script>
+</body>
+</html>
